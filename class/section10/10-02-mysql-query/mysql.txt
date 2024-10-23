@@ -1,0 +1,54 @@
+show databases;
+
+use myproject;
+
+show tables;
+
+desc product;
+
+select * from product;
+
+insert into product(id, name, description, price)
+            value (uuid(), 'mouse', 'very good mouse', 5000);
+delete from product
+    where id = '251615d2-859c-11ef-a8e1-a8a1591da39f';
+
+update product
+  set price = 18000;
+
+
+#===================join=========================
+select * from product_saleslocation;
+
+insert into product_saleslocation(id, address, addressDetail, lat, lng, meetingTime)
+                            value(uuid(), '구로구 ', '구로디지털 단지 ',37.123456,38.123456,'2024-04-03');
+
+
+update product
+set productsSaleslocationId ='bd8da1f8-859d-11ef-a8e1-a8a1591da39f'
+where name = 'mouse';
+
+select p.id,name, price,address,addressDetail as '상세주소'
+from product p, product_saleslocation ps
+where p.productsSaleslocationId = ps.id;
+
+#======= 추가 기능 들 =======
+update product
+set isSoldout = true
+where name = 'mouse'
+  and price = '18000';
+
+update product
+set isSoldout = true
+where name = 'mouse'
+  or price = '18000';
+
+
+
+#=============주석 쉽게 다는 방법 =================
+#=============업데이트 삭제 에서는 사용하지 않기 =========
+select * from product
+where 1 = 1
+and name = 'mouse'
+and price = 18000
+and isSoldout='false'

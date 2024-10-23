@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>결제 페이지</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <script>
+      const requestPay = () => {
+        IMP.init("imp32684288");
+        IMP.request_pay(
+          {
+            channelKey: "channel-key-09b4d1b0-9bdb-4822-aa1a-6de5154d2278",
+            pay_method: "card",
+            // merchant_uid: `payment-${crypto.randomUUID()}`, // 주문 고유 번호
+            name: "노르웨이 회전 의자",
+            amount: 1000,
+            buyer_email: "gildong@gmail.com",
+            buyer_name: "홍길동",
+            buyer_tel: "010-4242-4242",
+            buyer_addr: "서울특별시 강남구 신사동",
+            buyer_postcode: "01181",
+          },
+          function (response) {
+            console.log(response);
+            if (response.success) {
+              alert("성공");
+
+              //백엔드 데이터 보내기
+              axios.post(
+                "http://localhost:3000/graphql",
+                {
+                  query: `
+                    mutation{
+                      createPointTransaction(impUid:"${response.imp_uid}", amount: ${response.paid_amount}){
+                        id
+                        impUid
+                        amount
+                        status
+                      }
+                    }
+                  `,
+                },
+                {
+                  headers: {
+                    Authorization:
+                      "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJlMjAwMmZiMC01NGM2LTQzNTctODRlMC1kMzNjMzdjNDNlNWEiLCJpYXQiOjE3Mjk0MTc3OTEsImV4cCI6MTcyOTQyMTM5MX0.HS-vo8T_4hJ3t6Klm0XtvKBMADdDEkXk-_6Nx-_MS6k",
+                  },
+                }
+              );
+            } else {
+              alert("실패");
+            }
+          }
+        );
+      };
+    </script>
+  </head>
+  <body>
+    <button onclick="requestPay()">결제하기</button>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+#db 보기
+show databases;
+
+# db 변경하기
+use mybackend;
+
+show tables;
+# 디비 설정 값 보기
+show variables
+
+# 커넥션 최대값 변경
+set global max_connections = 15
+
+# 지금 연결된 커넥션 확인하기(thread_connectied)
+show status
+
+#현재 연결된 커넥션 확인
+show processlist
+
+kill 11
+

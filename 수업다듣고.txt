@@ -1,0 +1,9 @@
+1. 모든 기능들 활용해서 프로젝트 만들고 각각의 기능에 주석으로 정리해서 한 프로젝트에 배운거 정리하기
+
+2. 노션에 정리해서 연결하기
+예시 // 노션 4.의존성 주입확인
+
+3. 설명하기
+
+
+ACVueO3jZtlOhWqBvERPiU9mntgDFNnqbKkGnih3ZnIiY7s79AOnfEy593xj2VmGZYPL7CdDgWe7HpQc
